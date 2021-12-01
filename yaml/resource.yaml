@@ -1,0 +1,7 @@
+apiVersion: api.myit.fun/v1
+kind: Dbconfig
+metadata:
+  name: config
+spec:
+  replicas: 1
+  dsn: "localhost"
