@@ -19,7 +19,7 @@ limitations under the License.
 package v1
 
 import (
-	internalinterfaces "github.com/hongshixing/db-operator/pkg/client/informers/externalversions/internalinterfaces"
+	internalinterfaces "github.com/hongshixing/db_operator/pkg/client/informers/externalversions/internalinterfaces"
 )
 
 // Interface provides access to all the informers in this group version.

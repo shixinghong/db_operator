@@ -21,7 +21,7 @@ package versioned
 import (
 	"fmt"
 
-	apiv1 "github.com/hongshixing/db-operator/pkg/client/clientset/versioned/typed/dbconfig/v1"
+	apiv1 "github.com/hongshixing/db_operator/pkg/client/clientset/versioned/typed/dbconfig/v1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"

@@ -21,7 +21,7 @@ package fake
 import (
 	"context"
 
-	dbconfigv1 "github.com/hongshixing/db-operator/pkg/apis/dbconfig/v1"
+	dbconfigv1 "github.com/hongshixing/db_operator/pkg/apis/dbconfig/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

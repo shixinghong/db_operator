@@ -19,8 +19,8 @@ limitations under the License.
 package dbconfig
 
 import (
-	v1 "github.com/hongshixing/db-operator/pkg/client/informers/externalversions/dbconfig/v1"
-	internalinterfaces "github.com/hongshixing/db-operator/pkg/client/informers/externalversions/internalinterfaces"
+	v1 "github.com/hongshixing/db_operator/pkg/client/informers/externalversions/dbconfig/v1"
+	internalinterfaces "github.com/hongshixing/db_operator/pkg/client/informers/externalversions/internalinterfaces"
 )
 
 // Interface provides access to each of this group's versions.

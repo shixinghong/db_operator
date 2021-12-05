@@ -1,5 +1,8 @@
 package v1
-import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -27,11 +30,11 @@ type DbConfigList struct {
 }
 
 type DbConfigSpec struct {
-	Replicas  int `json:"replicas,omitempty"`
-	Dsn string `json:"dsn,omitempty"`
+	Replicas int32  `json:"replicas,omitempty"`
+	Dsn      string `json:"dsn,omitempty"`
 }
 
 type DbConfigStatus struct {
-	Replicas int
+	Replicas int32  `json:"replicas,omitempty"`
+	Ready    string `json:"ready,omitempty"`
 }
-

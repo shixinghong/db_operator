@@ -19,8 +19,8 @@ limitations under the License.
 package v1
 
 import (
-	v1 "github.com/hongshixing/db-operator/pkg/apis/dbconfig/v1"
-	"github.com/hongshixing/db-operator/pkg/client/clientset/versioned/scheme"
+	v1 "github.com/hongshixing/db_operator/pkg/apis/dbconfig/v1"
+	"github.com/hongshixing/db_operator/pkg/client/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
 

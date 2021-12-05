@@ -2,10 +2,13 @@ package main
 
 import (
 	"os"
+	"sigs.k8s.io/controller-runtime/pkg/handler"
+	"sigs.k8s.io/controller-runtime/pkg/source"
 
-	"github.com/hongshixing/db-operator/pkg/apis/dbconfig/v1"
-	"github.com/hongshixing/db-operator/pkg/config"
+	"github.com/hongshixing/db_operator/pkg/apis/dbconfig/v1"
+	"github.com/hongshixing/db_operator/pkg/config"
 
+	appsv1 "k8s.io/api/apps/v1"
 	"sigs.k8s.io/controller-runtime/pkg/builder"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
@@ -29,7 +32,15 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err = builder.ControllerManagedBy(mgr).For(&v1.DbConfig{}).Complete(config.NewDbConfigController()); err != nil {
+	dbConfigController := config.NewDbConfigController()
+	if err = builder.ControllerManagedBy(mgr).
+		For(&v1.DbConfig{}).
+		Watches(&source.Kind{Type: &appsv1.Deployment{}},
+			handler.Funcs{
+				DeleteFunc: dbConfigController.OnDelete,
+				UpdateFunc: dbConfigController.OnUpdate,
+			}).
+		Complete(dbConfigController); err != nil {
 		log.Error(err, "could not create controller")
 		os.Exit(1)
 	}
@@ -38,4 +49,5 @@ func main() {
 		log.Error(err, "could not start manager")
 		os.Exit(1)
 	}
+
 }

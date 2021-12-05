@@ -22,8 +22,8 @@ import (
 	"context"
 	"time"
 
-	v1 "github.com/hongshixing/db-operator/pkg/apis/dbconfig/v1"
-	scheme "github.com/hongshixing/db-operator/pkg/client/clientset/versioned/scheme"
+	v1 "github.com/hongshixing/db_operator/pkg/apis/dbconfig/v1"
+	scheme "github.com/hongshixing/db_operator/pkg/client/clientset/versioned/scheme"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
