@@ -1,13 +1,13 @@
 package main
 
 import (
+	"github.com/hongshixing/db_operator/pkg/controller"
 	"os"
 	"sigs.k8s.io/controller-runtime/pkg/handler"
 	"sigs.k8s.io/controller-runtime/pkg/source"
 
 	"github.com/hongshixing/db_operator/pkg/apis/dbconfig/v1"
 	"github.com/hongshixing/db_operator/pkg/config"
-
 	appsv1 "k8s.io/api/apps/v1"
 	"sigs.k8s.io/controller-runtime/pkg/builder"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
@@ -32,7 +32,9 @@ func main() {
 		os.Exit(1)
 	}
 
-	dbConfigController := config.NewDbConfigController()
+
+
+	dbConfigController := controller.NewDbConfigController()
 	if err = builder.ControllerManagedBy(mgr).
 		For(&v1.DbConfig{}).
 		Watches(&source.Kind{Type: &appsv1.Deployment{}},

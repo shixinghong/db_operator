@@ -1,22 +1,18 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: 
-  labels:
-    app: 
+  name: jenkins
+  namespace: kube-ops
 spec:
-  replicas: 1
-  template:
-    metadata:
-      name: 
-      labels:
-        app: 
-    spec:
-      containers:
-        - name: 
-          image: 
-          imagePullPolicy: IfNotPresent
-      restartPolicy: Always
-  selector:
-    matchLabels:
-      app: 
+  ingressClassName: nginx
+  rules:
+    - host: jenkins.myit.fun
+      http:
+          paths:
+            - path: "/"
+              pathType: Prefix
+              backend:
+                service:
+                  name: jenkins
+                  port:
+                    name: web

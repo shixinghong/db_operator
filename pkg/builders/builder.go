@@ -19,21 +19,21 @@ const deployTemp = `
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: db-{{ .Name }}
+  name: old-{{ .Name }}
   namespace: {{ .Namespace}}
 spec:
   selector:
     matchLabels:
-      app: db-{{ .Namespace}}-{{ .Name }}
+      app: old-{{ .Namespace}}-{{ .Name }}
   replicas: 1
   template:
     metadata:
       labels:
-        app: db-{{ .Namespace}}-{{ .Name }}
+        app: old-{{ .Namespace}}-{{ .Name }}
         version: v1
     spec:
       containers:
-        - name: db-{{ .Namespace}}-{{ .Name }}-container
+        - name: old-{{ .Namespace}}-{{ .Name }}-container
           image: docker.io/shenyisyn/dbcore:v1
           imagePullPolicy: IfNotPresent
           ports:
@@ -48,7 +48,7 @@ type DeployBuilder struct {
 }
 
 func deployName(name string) string {
-	return "db-" + name
+	return "old-" + name
 }
 
 // NewDeployBuilder build new deploy
@@ -115,12 +115,11 @@ func (b *DeployBuilder) Build(ctx context.Context) error {
 		if err := b.Update(ctx, b.Deployment); err != nil {
 			return err
 		}
-
 		rep := b.Deployment.Status.Replicas
 		b.Db.Status.Replicas = rep
 		b.Db.Status.Ready = strconv.Itoa(int(rep)) + "/" + strconv.Itoa(int(b.Db.Spec.Replicas))
 		//fmt.Println(b.Db.Status.Ready)b
-		return b.Client.Status().Update(ctx, b.Db)
+		return b.Status().Update(ctx, b.Db) // 更新status字段中的状态
 	}
 	//return nil
 }

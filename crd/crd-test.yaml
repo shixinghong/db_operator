@@ -1,7 +1,7 @@
 apiVersion: api.myit.fun/v1
 kind: DbConfig
 metadata:
-  name: mydbconfig
+  name: q
 spec:
   replicas: 3
   dsn: "mysql dsn"

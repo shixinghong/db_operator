@@ -1,15 +1,13 @@
-package config
+package controller
 
 import (
 	"context"
-	"fmt"
 	"k8s.io/apimachinery/pkg/types"
 
 	"github.com/hongshixing/db_operator/pkg/apis/dbconfig/v1"
 	"github.com/hongshixing/db_operator/pkg/builders"
 
 	"k8s.io/client-go/util/workqueue"
-	"k8s.io/klog/v2"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/event"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
@@ -44,11 +42,11 @@ func (dc *DbConfigController) OnDelete(event event.DeleteEvent, limitingInterfac
 	}
 }
 
-// OnUpdate 当资源被更新时 重建资源
+// OnUpdate 当资源被更新时 重新回到队列中 触发更新status字段状态
 func (dc *DbConfigController) OnUpdate(event event.UpdateEvent, limitingInterface workqueue.RateLimitingInterface) {
 	for _, ref := range event.ObjectNew.GetOwnerReferences() {
-		if ref.Kind == Kind && ref.APIVersion == GroupAPIVersion { // deploy被删除 重新回到队列中 重建
-			fmt.Println("OnUpdate 当资源被更新时 重建资源s")
+		if ref.Kind == Kind && ref.APIVersion == GroupAPIVersion { // deploy被更新 重新回到队列中
+			//fmt.Println("OnUpdate 当资源被更新时 重建资源s")
 			limitingInterface.Add(reconcile.Request{
 				NamespacedName: types.NamespacedName{
 					Namespace: event.ObjectNew.GetNamespace(),
@@ -73,7 +71,7 @@ func (dc *DbConfigController) Reconcile(ctx context.Context, req reconcile.Reque
 		return reconcile.Result{}, err
 	}
 
-	klog.Info(db)
+	//klog.Info(db)
 
 	return reconcile.Result{}, nil
 }
