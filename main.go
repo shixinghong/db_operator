@@ -32,8 +32,6 @@ func main() {
 		os.Exit(1)
 	}
 
-
-
 	dbConfigController := controller.NewDbConfigController()
 	if err = builder.ControllerManagedBy(mgr).
 		For(&v1.DbConfig{}).
